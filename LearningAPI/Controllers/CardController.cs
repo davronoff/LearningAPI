@@ -17,27 +17,27 @@ namespace LearningAPI.Controllers
 			_service = service;
 		}
 		[HttpGet("getall")]
-		public IActionResult GetAll()
+		public async Task<ActionResult> GetAll()
 		{
-			var json = _service.GetAll();
+			var json = await _service.GetAll();
 			return Ok(json);
 		}
 		[HttpGet("get/{id}")]
-		public IActionResult GetById(Guid id)
+		public async Task<ActionResult> GetById(Guid id)
 		{
-			var json = _service.GetById(id);
+			var json = await _service.GetById(id);
 			return Ok(json);
 		}
 		[HttpPost("add")]
-		public IActionResult Add(Card card)
+		public async Task<ActionResult> Add(Card card)
 		{
-			var json = _service.Add(card);
+			var json = await _service.Add(card);
 			return Ok(json);
 		}
 		[HttpPut("update")]
-		public IActionResult Update(Card card)
+		public async Task<ActionResult> Update(Card card)
 		{
-			var json = _service.Update(card);
+			var json = await _service.Update(card);
 			return Ok(json);
 		}
 		[HttpDelete("{id}")]

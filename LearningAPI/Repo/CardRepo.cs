@@ -1,6 +1,7 @@
 ﻿using LearningAPI.DataLayer;
 using LearningAPI.Interface;
 using LearningAPI.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace LearningAPI.Repo
 {
@@ -12,11 +13,12 @@ namespace LearningAPI.Repo
 		{
 			_dataContext = dataContext;
 		}
-		public Card Add(Card card)
+
+		public Task<Card> Add(Card card)
 		{
 			_dataContext.Cards.Add(card);
 			_dataContext.SaveChanges();
-			return card;
+			return Task.FromResult(card);
 		}
 
 		public void Delete(Guid id)
@@ -26,19 +28,19 @@ namespace LearningAPI.Repo
 			_dataContext.SaveChanges();
 		}
 
-		public List<Card> GetAll() => _dataContext.Cards.ToList();
+		public Task<List<Card>> GetAll() => _dataContext.Cards.ToListAsync();
 
-		public Card GetById(Guid id)
+		public Task<Card> GetById(Guid id)
 		{
 			var card = _dataContext.Cards.FirstOrDefault(p => p.Id == id);
-			return card;
+			return Task.FromResult(card);
 		}
 
-		public Card Update(Card card)
+		public Task<Card> Update(Card card)
 		{
 			_dataContext.Cards.Update(card);
 			_dataContext.SaveChanges();
-			return card;
+			return Task.FromResult(card);
 		}
 	}
 }
